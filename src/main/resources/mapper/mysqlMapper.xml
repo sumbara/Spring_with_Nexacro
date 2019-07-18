@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.orgg//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="mtu.yc.sm.mybatis">
+	<select id="selectAllWarehouse" resultType="vo.WarehouseVO">
+		<![CDATA[
+			select * from warehouse;
+		]]>
+	</select>
+	<select id="selectWarehouseData" resultType="vo.WarehouseVO">
+		<![CDATA[
+			select * from warehouse where product_id = #{product_id};
+		]]>
+	</select>
+	<update id="updateWarehouse">
+		<![CDATA[
+			update warehouse set count = #{count} where product_id = #{product_id};
+		]]>
+	</update>
+	<insert id="insertWarehouse">
+		<![CDATA[
+			insert into warehouse values (#{product_id}, #{product_name}, #{count});		
+		]]>
+	</insert>
+	<select id="selectProduct" resultType="vo.ProductVO">
+		<![CDATA[
+			select * from product where product_id = #{product_id};
+		]]>
+	</select>
+	<insert id="insertProduct">
+		<![CDATA[
+			insert into product values (#{product_id}, #{product_name}, #{price});
+		]]>
+	</insert>
+	<insert id="insertCustomer">
+		<![CDATA[
+			insert into customer values (#{customer_id}, #{customer_name}, #{phone});
+		]]>
+	</insert>
+	<select id="selectAllProduct" resultType="vo.ProductVO">
+		<![CDATA[
+			select * from product;
+		]]>
+	</select>
+	<select id="selectAllCustomer" resultType="vo.CustomerVO">
+		<![CDATA[
+			select * from customer;
+		]]>
+	</select>
+	<insert id="insertImportHistory">
+		<![CDATA[
+			insert import_history(import_customer_id, import_product_id, import_amount, import_date, import_product_name) 
+			values (#{import_customer_id}, #{import_product_id}, #{import_amount}, #{str_import_date}, #{import_product_name});
+		]]>
+	</insert>
+	<insert id="insertExportHistory">
+		<![CDATA[
+			insert export_history(export_customer_id, export_product_id, export_amount, export_date, export_product_name) 
+			values (#{export_customer_id}, #{export_product_id}, #{export_amount}, #{str_export_date}, #{export_product_name});
+		]]>
+	</insert>
+	<select id="selectPaymentData" resultType="vo.PaymentVO">
+		<![CDATA[
+			select * from payment where payment_customer_id = #{payment_customer_id};
+		]]>
+	</select>
+	<update id="updatePayment">
+		<![CDATA[
+			update payment set paymoney = #{paymoney}, non_paymoney = #{non_paymoney} where payment_customer_id = #{payment_customer_id};
+		]]>
+	</update>
+	<insert id="insertPayment">
+		<![CDATA[
+			insert into payment values (#{payment_customer_id}, #{paymoney}, #{non_paymoney});
+		]]>
+	</insert>
+	<select id="selectCollectData" resultType="vo.CollectVO">
+		<![CDATA[
+			select * from collect where collect_customer_id = #{collect_customer_id};
+		]]>
+	</select>
+	<update id="updateCollect">
+		<![CDATA[
+			update collect set collectmoney = #{collectmoney}, non_collectmoney = #{non_collectmoney} where collect_customer_id = #{collect_customer_id};
+		]]>
+	</update>
+	<insert id="insertCollect">
+		<![CDATA[
+			insert into collect values (#{collect_customer_id}, #{collectmoney}, #{non_collectmoney});
+		]]>
+	</insert>
+	<select id="checkSettle" resultType="int">
+		<![CDATA[
+			select count(*) from settlement_product where settlestate = 'Y' and year >= #{year} and month >= #{month};
+		]]>
+	</select>
+	<select id="checkSettleCancel" resultType="int">
+		<![CDATA[
+			select count(*) from settlement_product where settlestate = 'Y' and year = #{year} and month = #{month};
+		]]>
+	</select>
+	<select id="selectNonSettleProduct" resultType="vo.Settle_productVO">
+		<![CDATA[
+			select * from settlement_product where settleState = 'N'; 
+		]]>
+	</select>
+	<select id="selectNonSettleCollect" resultType="vo.Settle_collectVO">
+		<![CDATA[
+			select * from settle_collect where settleState = 'N';
+		]]>
+	</select>
+	<select id="selectNonSettlePayment" resultType="vo.Settle_paymentVO">
+		<![CDATA[
+			select * from settle_payment where settleState = 'N';
+		]]>
+	</select>
+	<insert id="insertSettleProudct">
+		<![CDATA[
+			insert into settlement_product values (#{year}, #{month}, #{sp_product_id}, #{carriedOverAmount}, #{totalImport}, #{totalExport}, #{totalAmount}, #{settleState});
+		]]>
+	</insert>
+	<insert id="insertSettleCollect">
+		<![CDATA[
+			insert into settle_collect values (#{year}, #{month}, #{sc_customer_id}, #{carriedOverMoney}, #{totalCollectMoney}, #{totalNon_collectMoney}, #{totalMoney}, #{settleState});
+		]]>
+	</insert>
+	<insert id="insertSettlePayment">
+		<![CDATA[
+			insert into settle_payment values (#{year}, #{month}, #{sp_customer_id}, #{carriedOverMoney}, #{totalPayMoney}, #{totalNon_paymoney}, #{totalMoney}, #{settleState});
+		]]>
+	</insert>	
+	<update id="updateSettleProduct">
+		<![CDATA[
+			update settlement_product set year=#{year}, month=#{month}, totalimport=#{totalImport}, totalexport=#{totalExport}, totalamount=#{totalAmount}, settlestate=#{settleState} 
+			where sp_product_id=#{sp_product_id} and settlestate = 'N';
+		]]>
+	</update>
+	<update id="updateSettlePayment">
+		<![CDATA[
+			update settle_payment set year=#{year}, month=#{month}, totalpaymoney=#{totalPayMoney}, totalnon_paymoney=#{totalNon_paymoney}, totalmoney=#{totalMoney}, settlestate=#{settleState} 
+			where sp_customer_id=#{sp_customer_id} and settlestate = 'N';
+		]]>
+	</update>
+	<update id="updateSettleCollect">
+		<![CDATA[
+			update settle_collect set year=#{year}, month=#{month}, totalcollectmoney=#{totalCollectMoney}, totalnon_collectmoney=#{totalNon_collectMoney}, totalmoney=#{totalMoney}, settlestate=#{settleState} 
+			where sc_customer_id=#{sc_customer_id} and settlestate = 'N';
+		]]>
+	</update>
+	<select id="selectImportHistory" resultType="vo.Import_historyVO">
+		<![CDATA[
+			SELECT i.import_num, i.import_customer_id, c.customer_name as import_customer_name, i.import_product_id, i.import_product_name, i.import_amount, i.import_date
+			from import_history as i join customer as c on i.import_customer_id = c.customer_id order by i.import_date desc;
+		]]>
+	</select>
+	<select id="selectExportHistory" resultType="vo.Export_historyVO">
+		<![CDATA[
+			SELECT e.export_num, e.export_customer_id, c.customer_name as export_customer_name, e.export_product_id, e.export_product_name, e.export_amount, e.export_date
+			from export_history as e join customer as c on e.export_customer_id = c.customer_id order by e.export_date desc;
+		]]>
+	</select>
+	<select id="selectExportProduct" resultType="vo.ExportProductVO">
+		<![CDATA[
+			select p.product_id, p.product_name, p.price, w.count from warehouse as w join product as p on w.product_id = p.product_id;
+		]]>
+	</select>
+	<select id="selectPaymentCustomer" resultType="vo.PCCustomerVO">
+		<![CDATA[
+			select c.customer_id, c.customer_name, p.PayMoney as money, p.Non_PayMoney as non_money	
+			from payment as p join customer as c on p.payment_customer_id = c.customer_id where p.non_paymoney > 0;
+		]]>
+	</select>
+	<select id="selectCollectCustomer" resultType="vo.PCCustomerVO">
+		<![CDATA[
+			select c.customer_id, c.customer_name, co.collectmoney as money, co.Non_collectMoney as non_money 
+			from collect as co join customer as c on co.collect_customer_id = c.customer_id where co.non_collectmoney > 0;
+		]]>
+	</select>
+	<insert id="insertPaymentHistory">
+		<![CDATA[
+			insert into payment_history(paymoney, paydate, p_history_customer_id, p_history_customer_name)
+			values (#{payMoney}, #{str_payDate}, #{p_History_Customer_id}, #{p_History_Customer_name});
+		]]>
+	</insert>
+	<insert id="insertCollectHistory">
+		<![CDATA[
+			insert into collect_history(collectmoney, collectdate, c_history_customer_id, c_history_customer_name)
+			values (#{collectMoney}, #{str_collectDate}, #{C_History_Customer_id}, #{C_History_Customer_name});
+		]]>
+	</insert>
+	<select id="selectPaymentHistory" resultType="vo.Payment_historyVO">
+		<![CDATA[
+			select * from payment_history order by paydate desc;
+		]]>
+	</select>
+	<select id="selectCollectHistory" resultType="vo.Collect_historyVO">
+		<![CDATA[
+			select * from collect_history order by collectdate desc;
+		]]>
+	</select>
+	<select id="selectAllSettleProduct" resultType="vo.Settle_productVO">
+		<![CDATA[
+			select * from settlement_product;
+		]]>
+	</select>
+	<select id="selectAllSettlePayment" resultType="vo.Settle_paymentVO">
+		<![CDATA[
+			select * from settle_payment;
+		]]>
+	</select>
+	<select id="selectAllSettleCollect" resultType="vo.Settle_collectVO">
+		<![CDATA[
+			select * from settle_collect;
+		]]>
+	</select>
+	<select id="selectSettlePay" resultType="int">
+		<![CDATA[
+			select sum(paymoney) from payment_history
+			where p_history_customer_id = #{customer_id} and paydate >= #{ex_yearMonth} and PayDate < #{now_yearMonth};
+		]]>
+	</select>
+	<select id="selectSettleNonPay" resultType="int">
+		<![CDATA[
+			select sum(i.import_amount * p.price) from import_history i join product p on i.import_product_id = p.product_id
+			where i.import_customer_id = #{customer_id} and i.import_date >= #{ex_yearMonth} and i.import_date < #{now_yearMonth};
+		]]>
+	</select>
+	<select id="selectSettleCollect" resultType="int">
+		<![CDATA[
+			select sum(collectmoney) from collect_history
+			where c_history_customer_id = #{customer_id} and collectdate >= #{ex_yearMonth} and collectDate < #{now_yearMonth};
+		]]>
+	</select>
+	<select id="selectSettleNonCollect" resultType="int">
+		<![CDATA[
+			select sum(e.export_amount * p.price) from export_history e join product p on e.export_product_id = p.product_id
+			where e.export_customer_id = #{customer_id} and e.export_date >= #{ex_yearMonth} and e.export_date < #{now_yearMonth};
+		]]>
+	</select>
+	<select id="selectSettleImport" resultType="int">
+		<![CDATA[
+			select sum(import_amount) from import_history
+			where import_product_id = #{product_id} and import_date >= #{ex_yearMonth} and import_date < #{now_yearMonth};
+		]]>
+	</select>
+	<select id="selectSettleExport" resultType="int">
+		<![CDATA[
+			select sum(export_amount) from export_history
+			where export_product_id = #{product_id} and export_date >= #{ex_yearMonth} and export_date < #{now_yearMonth};
+		]]>
+	</select>
+	<select id="selectCancelSettleProduct" resultType="vo.Settle_productVO">
+		<![CDATA[
+			select * from settlement_product where settleState = 'N' and year=#{year} and month=#{month}; 
+		]]>
+	</select>
+	<select id="selectCancelSettleCollect" resultType="vo.Settle_collectVO">
+		<![CDATA[
+			select * from settle_collect where settleState = 'N' and year=#{year} and month=#{month};
+		]]>
+	</select>
+	<select id="selectCancelSettlePayment" resultType="vo.Settle_paymentVO">
+		<![CDATA[
+			select * from settle_payment where settleState = 'N' and year=#{year} and month=#{month};
+		]]>
+	</select>
+	<delete id="deleteSettleProduct">
+		<![CDATA[
+			delete from settlement_product where year=#{year} and month=#{month} and sp_product_id=#{sp_product_id};
+		]]>
+	</delete>
+	<delete id="deleteSettlePayment">
+		<![CDATA[
+			delete from settle_payment where year=#{year} and month=#{month} and sp_customer_id=#{sp_customer_id};
+		]]>
+	</delete>
+	<delete id="deleteSettleCollect">
+		<![CDATA[
+			delete from settle_collect where year=#{year} and month=#{month} and sc_customer_id=#{sc_customer_id};
+		]]>
+	</delete>
+	<select id="selectLastSettleYearMonth" resultType="vo.InsertSettleVO">
+		<![CDATA[
+			select year, month from settlement_product where settlestate = 'Y' order by year desc, month desc limit 1;
+		]]>	
+	</select>
+	<select id="selectSettleTotalAmount" resultType="int">
+		<![CDATA[
+			select totalamount from settlement_product where year=#{year} and month=#{month} and sp_product_id=#{product_id};
+		]]>
+	</select>
+	<select id="selectSettleTotalPayMoney" resultType="int">
+		<![CDATA[
+			select totalmoney from settle_payment where year=#{year} and month=#{month} and sp_customer_id=#{customer_id};
+		]]>
+	</select>
+	<select id="selectSettleTotalCollectMoney" resultType="int">
+		<![CDATA[
+			select totalmoney from settle_collect where year=#{year} and month=#{month} and sc_customer_id=#{customer_id};
+		]]>
+	</select>
+	<delete id="deleteImportHistory">
+		<![CDATA[
+			delete from import_history where import_num = #{import_num}; 
+		]]>
+	</delete>
+	<delete id="deleteExportHistory">
+		<![CDATA[
+			delete from export_history where export_num = #{export_num};
+		]]>
+	</delete>
+	<update id="updateImportHistory">
+		<![CDATA[
+			update import_history set import_amount=#{import_amount} where import_num=#{import_num};
+		]]>
+	</update>
+	<update id="updateExportHistory">
+		<![CDATA[
+			update export_history set export_amount=#{export_amount} where export_num=#{export_num};
+		]]>
+	</update>
+	<delete id="deletePaymentHistory">
+		<![CDATA[
+			delete from payment_history where payment_num = #{payment_num};
+		]]>
+	</delete>
+	<delete id="deleteCollectHistory">
+		<![CDATA[
+			delete from collect_history where collect_num = #{collect_num};
+		]]>
+	</delete>
+	<update id="updatePaymentHistory">
+		<![CDATA[
+			update payment_history set paymoney = #{payMoney} where payment_num = #{payment_num};
+		]]>
+	</update>
+	<update id="updateCollectHistory">
+		<![CDATA[
+			update collect_history set collectmoney = #{collectMoney} where collect_num = #{collect_num};
+		]]>
+	</update>
+</mapper>

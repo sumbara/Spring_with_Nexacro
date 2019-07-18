@@ -1,0 +1,211 @@
+﻿
+        .nexainput.nexaleftalign
+{
+  text-align:left;
+}
+.nexainput.nexarightalign
+{
+  text-align:right;
+}
+.nexainput.nexacenteralign
+{
+  text-align:center;
+}
+
+.nexacontentsbox.nexaleftalign
+{
+  text-align:left;
+}
+.nexacontentsbox.nexarightalign
+{
+  text-align:right;
+}
+.nexacontentsbox.nexacenteralign
+{
+  text-align:center;
+}
+.celltreeline
+{
+  border : 1px dotted #999999;
+}
+.Edit, .MaskEdit, .TextArea, .EditControl, .MaskEditControl, .TextAreaControl
+{
+  cursor:text;
+}
+.Button .nexacontentsbox, .ButtonControl .nexacontentsbox
+{
+  text-align:center;
+}
+
+.FileDownload  .nexacontentsbox, .FileDownloadControl .nexacontentsbox
+{
+  text-align:center;
+}
+
+.IconTextControl .nexacontentsbox, .IconControl .nexacontentsbox
+{
+  text-align:center;
+}
+
+.DatePickerDayItemControl .nexacontentsbox, .DatePickerWeekItemControl .nexacontentsbox, .TitleBarButtonControl .nexacontentsbox
+{
+  text-align:center;
+}
+
+.MainFrame, .VScrollBarControl, .HScrollBarControl
+{
+  cursor:default;
+}
+.nexainput
+{
+  cursor:inherit;
+}
+
+.Button.bt_click
+{
+	box-shadow : 1px 1px 2px #0c0c0c;
+	font : normal 13pt /normal "LG스마트체 SemiBold";
+	border-radius : 3px;
+	background : #ABABAB;
+	color : #ffffff;
+	border : 0px none #a5a5a5;
+}
+.Button.bt_click .nexacontentsbox
+{
+	text-align : center;
+	vertical-align : middle;
+}
+.Button.bt_click[status=focused]
+{
+	box-shadow : 1px 1px 2px #0c0c0c;
+	font : normal 13pt /normal "LG스마트체 SemiBold";
+	border-radius : 3px;
+	background : #ABABAB;
+	color : #ffffff;
+	border : 0px none #a5a5a5;
+}
+.Button.bt_click[status=focused] .nexacontentsbox
+{
+	text-align : center;
+	vertical-align : middle;
+}
+.Button.bt_click[status=mouseover]
+{
+	box-shadow : 1px 1px 2px #0c0c0c;
+	font : normal 13pt /normal "LG스마트체 SemiBold";
+	border-radius : 3px;
+	background : #6F6F6F;
+	color : #ffffff;
+	border : 0px none #a5a5a5;
+}
+.Button.bt_click[status=mouseover] .nexacontentsbox
+{
+	text-align : center;
+	vertical-align : middle;
+}
+.Button.bt_click[userstatus=selected]
+{
+	box-shadow : 1px 1px 2px #0c0c0c;
+	font : normal 13pt /normal "LG스마트체 SemiBold";
+	border-radius : 3px;
+	background : #ABABAB;
+	color : #ffffff;
+	border : 0px none #a5a5a5;
+}
+.Button.bt_click[userstatus=selected] .nexacontentsbox
+{
+	text-align : center;
+	vertical-align : middle;
+}
+.Button.bt_click[userstatus=pushed]
+{
+	box-shadow : 1px 1px 2px #0c0c0c;
+	font : normal 13pt /normal "LG스마트체 SemiBold";
+	border-radius : 3px;
+	background : #6F6F6F;
+	color : #ffffff;
+	border : 0px none #a5a5a5;
+}
+.Button.bt_click[userstatus=pushed] .nexacontentsbox
+{
+	text-align : center;
+	vertical-align : middle;
+}
+.Button.bt_search
+{
+	box-shadow : 1px 1px 2px #7f7f7f;
+	font : normal 15pt /normal "LG스마트체 SemiBold";
+	border-radius : 3px;
+	background : #5AAEFF;
+	color : #ffffff;
+	border : 0px none #5AAEFF;
+}
+.Button.bt_search .nexacontentsbox
+{
+	text-align : center;
+	vertical-align : middle;
+}
+.Button.bt_search[status=focused]
+{
+	box-shadow : 1px 1px 2px #7f7f7f;
+	font : normal 15pt /normal "LG스마트체 SemiBold";
+	border-radius : 3px;
+	background : #5AAEFF;
+	color : #ffffff;
+	border : 0px none #5AAEFF;
+}
+.Button.bt_search[status=focused] .nexacontentsbox
+{
+	text-align : center;
+	vertical-align : middle;
+}
+.Button.bt_search[status=mouseover]
+{
+	box-shadow : 1px 1px 2px #7f7f7f;
+	font : normal 15pt /normal "LG스마트체 SemiBold";
+	border-radius : 3px;
+	background : #4375DB;
+	color : #ffffff;
+	border : 0px none #5AAEFF;
+}
+.Button.bt_search[status=mouseover] .nexacontentsbox
+{
+	text-align : center;
+	vertical-align : middle;
+}
+.Button.bt_search[userstatus=pushed]
+{
+	box-shadow : 1px 1px 2px #7f7f7f;
+	font : normal 15pt /normal "LG스마트체 SemiBold";
+	border-radius : 3px;
+	background : #4375DB;
+	color : #ffffff;
+	border : 0px none #5AAEFF;
+}
+.Button.bt_search[userstatus=pushed] .nexacontentsbox
+{
+	text-align : center;
+	vertical-align : middle;
+}
+.Button.bt_search[userstatus=selected]
+{
+	box-shadow : 1px 1px 2px #7f7f7f;
+	font : normal 15pt /normal "LG스마트체 SemiBold";
+	border-radius : 3px;
+	background : #5AAEFF;
+	color : #ffffff;
+	border : 0px none #5AAEFF;
+}
+.Button.bt_search[userstatus=selected] .nexacontentsbox
+{
+	text-align : center;
+	vertical-align : middle;
+}
+.Static
+{
+	font : normal 700 20pt/normal "LG스마트체 Bold";
+}
+.Static.st_content
+{
+	font : normal 13pt /normal "LG스마트체 SemiBold";
+}
